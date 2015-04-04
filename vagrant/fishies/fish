@@ -1,0 +1,31 @@
+select 2+ 2 as a, 4+4 as b;
+select * from posts;
+show tables;
+\?
+\d
+\d posts
+select * from posts \watch
+\h
+select * from posts order by time desc;
+delete from posts;
+\d posts;
+\d posts
+select * from posts;
+update posts set content = 'cheese' where content like '%script%';
+update posts set content = 'cheese' where content like '%spam%';
+delete from posts where content = 'cheese';
+select * from posts;
+\q
+create database fishies;
+drop database fishies;
+create database fishies;
+exit
+;
+exit;
+\q
+create table fish (name text, id serial);
+\s
+\d
+insert into fish values ('goldfish');
+insert into fish values ('piranha');
+\s fish

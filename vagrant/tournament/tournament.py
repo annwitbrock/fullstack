@@ -4,24 +4,64 @@
 #
 
 import psycopg2
-
+from bleach import clean
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
-    return psycopg2.connect("dbname=tournament")
+    return psycopg2.connect("dbname='tournament'")
 
+def getData(sql):
+    try:
+        conn = connect()
+    except:
+        print "Unable to connect to database"
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute(sql)
+    result = cur.fetchall()
+    conn.close()
+    return result
+    
+def getDataItem(sql):
+    try:
+        conn = connect()
+    except:
+        print "Unable to connect to database"
+    cur = conn.cursor()
+    cur.execute(sql)
+    result = cur.fetchone()[0]
+    conn.close()
+    return result
+
+def putData(sql, data = None):
+    try:
+        conn = connect()
+    except:
+        print "Unable to connect to database"
+    cur = conn.cursor()
+    cur.execute(sql, data)
+    conn.commit()
+    conn.close()
+
+#-----------------------------------------------
 
 def deleteMatches():
     """Remove all the match records from the database."""
-
+    
+    SQL = "delete from matches;"
+    putData(SQL)
 
 def deletePlayers():
     """Remove all the player records from the database."""
-
+    
+    SQL = "delete from players;"
+    putData(SQL)
 
 def countPlayers():
     """Returns the number of players currently registered."""
-
+    
+    SQL = "select count(*) from players;"
+    return getDataItem(SQL)
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
@@ -32,7 +72,10 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-
+    
+    SQL = "insert into players (name) values (%s);" # unquoted token
+    data = (clean(name),)      # always as a tuple
+    putData(SQL, data)
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -48,6 +91,12 @@ def playerStandings():
         matches: the number of matches the player has played
     """
 
+    SQL = "select * from standings;"
+    result = getData(SQL)
+
+     # replace None with zero
+    standings =[(row[0], row[1], row[2] or 0, row[3] or 0) for row in result]
+    return standings
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -56,7 +105,10 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
- 
+    
+    SQL = "insert into matches (winner, loser) values (%s, %s);" # unquoted token
+    data = (clean(winner), clean(loser)) # tuple always 
+    putData(SQL, data)
  
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
@@ -73,5 +125,16 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    
+    standings = playerStandings()
+    pairings =[]
+    c = countPlayers()
+    
+    def pairPlayers(s1, s2 ):
+        return ( s1[0], s1[1], s2[0], s2[1])
+    
+    for index in range(0, c, 2):
+        pairings.append(pairPlayers(standings[index], standings[index + 1]))
 
+    return pairings
 

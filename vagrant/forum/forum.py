@@ -21,7 +21,7 @@ HTML_WRAP = '''\
       textarea { width: 400px; height: 100px; }
       div.post { border: 1px solid #999;
                  padding: 10px 10px;
-		 margin: 10px 20%%; }
+        margin: 10px 20%%; }
       hr.postbound { width: 50%%; }
       em.date { color: #999 }
     </style>
@@ -85,7 +85,7 @@ def Post(env, resp):
 ## Dispatch table - maps URL prefixes to request handlers
 DISPATCH = {'': View,
             'post': Post,
-	    }
+        }
 
 ## Dispatcher forwards requests according to the DISPATCH table.
 def Dispatcher(env, resp):
