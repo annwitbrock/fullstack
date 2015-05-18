@@ -1,0 +1,30 @@
+body { font-family: sans-serif; background-image: url('img3.jpg'); background-color: #333333; }
+h1, h2, h3, h4 { color: #FFFFFF; }
+h1, h2 { font-family: 'Georgia', serif; margin: 0; }
+h1 { border-bottom: 2px solid #eee; }
+h2  { font-size: 1.2em; }
+
+p, dd, dt { color: #CCCCCC;}
+
+a {text-decoration: none; color:#FFFFCC; font-size: .75em; padding: 0 1em;}
+
+.pane {position:absolute; left: 25%; border: 2px solid;
+ border-radius: 25px; padding: 15px; margin: 5px; border-color: #999999; background-color: #333333 }
+.header {left:50%; text-align: center;}
+.name {width:49%; display: inline-block; color: #cee5f5}
+a .name {font-size:1.2em;}
+.description {width: 100%;}
+.price {text-align: right; width:20%; float: right; color: #cee5f5; padding: 0 1em;}
+.editdeletepane {float: right; }
+
+.flash { background: #cee5F5; }
+.item-list { margin: 2em 1em; padding: 1em 0;}
+.item { padding: 1em 0;}
+.panel {
+ border-radius: 15px; padding: 15px; margin: 5px; border: 2px solid; border-color: #eeeeee; background-color: #333333;  
+}
+
+.button {
+float: left; border-radius: 15px; padding: 15px; margin: 5px; border: 2px solid; border-color: #eeeeee; background-color: #cccc33;
+}
+.button .a { color: #ffffcc; }

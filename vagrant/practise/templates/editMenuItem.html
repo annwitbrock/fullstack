@@ -1,0 +1,36 @@
+<html>
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class='pane'>
+
+<h1>{{ restaurant.name }}</h1>
+<p><h2> Edit Menu Item <span class="name">{{item.name}}</span></h2></p>
+
+<form action="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=menu_id )}}" method='POST' >
+
+<p><label>Name:</label>
+<input type='text' size='30' name='name' placeholder=' {{item.name}}'></p>
+<p><label>Price:</label>
+<input type='text' size='10' name='price' placeholder='{{item.price}}'></p>
+<p><label>Description:</label>
+<input type='textarea' size='50' name='description' placeholder='{{item.description}}'></p>
+
+<div class="panel">
+<input type='radio' name='course' value='Appetizer' >Appetizer
+<input type='radio' name='course' value='Entree' >Entree
+<input type='radio' name='course' value='Dessert' >Dessert
+<input type='radio' name='course' value='Beverage' >Beverage
+</div>
+
+<input class="button" type='submit' value='Edit'>
+
+<div class="button"><a href = "{{ url_for('showMenu', restaurant_id=restaurant.id) }}"> Cancel </a></div>
+
+</form>
+
+</div>
+</body>
+
+</html>
