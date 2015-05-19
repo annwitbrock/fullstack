@@ -18,10 +18,13 @@
 <input type='textarea' size='50' name='description' placeholder='{{item.description}}'></p>
 
 <div class="panel">
-<input type='radio' name='course' value='Appetizer' >Appetizer
-<input type='radio' name='course' value='Entree' >Entree
-<input type='radio' name='course' value='Dessert' >Dessert
-<input type='radio' name='course' value='Beverage' >Beverage
+<input type='radio' name='course' value='Appetizer' 
+{% if item.course=='Appetizer' %}checked{% endif %} >Appetizer
+<input type='radio' name='course' value='Entree' 
+{% if item.course=='Entree' %}checked{% endif %} >Entree
+<input type='radio' name='course' value='Dessert' 
+{% if item.course=='Dessert' %}checked{% endif %} >Dessert
+<input type='radio' name='course' value='Beverage' {% if item.course=='Beverage' %}checked{% endif %} >Beverage
 </div>
 
 <input class="button" type='submit' value='Edit'>

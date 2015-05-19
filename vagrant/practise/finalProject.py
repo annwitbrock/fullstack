@@ -23,6 +23,22 @@ item = {'id': '0'}
 items = []
 
 
+#API endpoint (GET Request)
+@app.route('/restaurants/JSON/')
+def restaurantsJSON():
+    restaurants = rdb.restaurants()
+    return jsonify(Restaurants=[r.serialize for r in restaurants])
+    
+@app.route('/restaurant/<int:restaurant_id>/menu/JSON/')
+def restaurantMenuJSON(restaurant_id):
+    items = mdb.restaurantMenu(restaurant_id)
+    return jsonify(MenuItems=[i.serialize for i in items])
+
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON/')
+def menuItemJSON(restaurant_id, menu_id):
+    item = mdb.restaurantMenuItem(restaurant_id, menu_id)
+    return jsonify(MenuItem=[i.serialize for i in item])
+
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
@@ -76,7 +92,10 @@ def newMenuItem(restaurant_id=1):
     #return "restaurant %s add menuitem " %(restaurant_id,)
     if request.method == 'POST':
         name = request.form['name']
-        mdb.addNewMenuItem(restaurant_id, name)
+        price = request.form['price']
+        course = request.form['course']
+        description = request.form['description']
+        mdb.addNewMenuItem(restaurant_id, name, price, course, description)
         flash('New menu item %s created' % name)
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:

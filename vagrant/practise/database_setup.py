@@ -11,6 +11,14 @@ class Restaurant(Base):
     __tablename__ = 'restaurant'
     name = Column(String(80), nullable = False)
     id = Column(Integer, primary_key = True)
+    
+    @property
+    def serialize(self):
+        #returns object data in easy to serialize format
+        return {
+            'id'    : self.id,
+            'name'  : self.name,
+        }
 
 class MenuItem(Base):
     __tablename__ = 'menu_item'
@@ -26,11 +34,11 @@ class MenuItem(Base):
     def serialize(self):
         #returns object data in easy to serialize format
         return {
-            'name'  : self.name,
+            'course'    : self.course,
             'description'   : self.description,
             'id'    : self.id,
+            'name'  : self.name,
             'price' : self.price,
-            'course'    : self.course,
         }
     
 #-----------------------------------------------------------
