@@ -36,7 +36,7 @@ READ
 
 We read out information in our database using the query method in SQLAlchemy:
 
-firstResult = sesson.query(Restaurant).first()
+firstResult = session.query(Restaurant).first()
 firstResult.name
 
 items = session.query(MenuItem).all()
@@ -45,7 +45,7 @@ for item in items:
 
 UPDATE
 
-In order to update and existing entry in our database, we must execute the following commands:
+In order to update an existing entry in our database, we must execute the following commands:
 
     Find Entry
     Reset value(s)
